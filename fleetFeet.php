@@ -5,6 +5,7 @@
 
     $connection = new mysqli($servername, $username, $password);
 
+
     //check connection
     if (mysqli_connect_error())
     {
