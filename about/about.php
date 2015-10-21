@@ -1,18 +1,18 @@
 <?php 
-    // $servername = "faure.cs.colostate.edu";
-    // $username = "MethaneAnalysis";
-    // $password = "MethProj!5";
+    $servername = "faure.cs.colostate.edu";
+    $username = "MethaneAnalysis";
+    $password = "MethProj!5";
 
-    // $connection = new mysqli($servername, $username, $password);
+    $connection = new mysqli($servername, $username, $password);
 
 
-    // //check connection
-    // if (mysqli_connect_error())
-    // {
-    //     die("Connection failed: ");
-    // }
+    //check connection
+    if (mysqli_connect_error())
+    {
+        die("Connection failed: ");
+    }
 
-    // echo "faure Connected successfully";
+    echo "faure Connected successfully";
 
 
 
@@ -42,11 +42,7 @@
 
         <script src="js/moment.js"></script>
         <style>
-            #map{
-                width: 94.6%;
-                height: 500px;
-                float: left;
-            }
+
             .data{
                 height: 6px;
                 width: 100%;
@@ -56,19 +52,6 @@
                 height: 300px;
                 width: 100%;
                 background-color: rgba(0,0,0,0.2);
-            }
-            .mapTool{
-                width: 5%;
-                height: 843px;
-                float: right;
-                background-color:rgba(0,0,0,0.2); 
-            }
-
-            .timeLine{
-                margin-top: 506px;
-                width: 94.65%;
-                height: 40px;
-                background-color: rgba(0,0,0,0.8);
             }
 
             .container0{
@@ -314,7 +297,7 @@
                                 <a href="#">Home</a>
                             </li>
                             <li>
-                                <a href="about/about.php">About</a>
+                                <a href="#">About</a>
                             </li>
                             <li>
                                 <a href="#">Documents</a>
@@ -490,117 +473,5 @@
         </div>
     </div>
     <!-- Footer - bloc-10 END -->
-
-        <script src="https://maps.googleapis.com/maps/api/js">
-        </script>
-        <script>
-            var map;
-            var marker;
-             function initialize(){
-                var mapCanvas = document.getElementById('map');
-                var mapOptions = {
-                    center: new google.maps.LatLng(40.573436, -105.086547),
-                    zoom:9,
-                    mapTypeId: google.maps.MapTypeId.HYBRID
-                }
-                map = new google.maps.Map(mapCanvas,mapOptions);
-
-                var newLatLng = {lat:40.573436, lng:-105.086547};
-             marker = new google.maps.Marker({
-                    position:new google.maps.LatLng(40.573436, -105.086547),
-                    map:map,
-                    title: 'Hello world'
-                });
-
-                marker = new google.maps.Marker({
-                    position:new google.maps.LatLng(40.57343600000000000001, -105.78654700000000000001),
-                    map:map,
-                    title: 'ni hao'
-                });
-
-
-
-           }
-             google.maps.event.addDomListener(window, 'load', initialize);
-
-        </script>
-
-        <script src="js/ion.rangeSlider.min.js"></script>
-
-        <script>
-                $("#range").ionRangeSlider({
-////////////////////////////date   hours
-  
-    //                 min: +moment().subtract(12, "hours").format("X"),
-    // max: +moment().format("X"),
-    // from: +moment().subtract(6, "hours").format("X"),
-    // prettify: function (num) {
-    //     return moment(num, "X").format("MMM Do, hh:mm A");
-    // }
-///////////////////////////
-
-//////////////////////////////////date date
-    type:"double",
-    min: +moment().subtract(1, "years").format("X"),
-    max: +moment().format("X"),
-    from: +moment().subtract(8, "months").format("X"),
-    to:+moment().subtract(5,"months").format("X"),
-    prettify: function (num) {
-        return moment(num, "X").format("LL");
-    }
-////////////////////////////////////////////////////////
-
-
-//////////////////range
-                    //     input:"#range",
-                    //     type: "double",
-                    //     min: 0,
-                    //     max: 100,
-                    //     from: 50,
-                    //     to:60,
-                    //     keyboard: true,
-
-                    //     onStart: function (data) {
-                    //         console.log("onStart");
-                    //     },
-                    //     onChange: function (data) {
-                    //         console.log("onChange");
-                    //     },
-                    //     onFinish: function (data) {
-                    //         console.log("onFinish");
-                    //     },
-                    //     onUpdate: function (data) {
-                    //         console.log("onUpdate");
-                    // }
-////////////////////////////range
-
-                });
-                // $(function () {
-
-                //     $("#range").ionRangeSlider({
-                //         hide_min_max: true,
-                //         keyboard: true,
-                //         min: 0,
-                //         max: 31,
-                //         from: 15,
-                //         type: 'single',
-                //         step: 1,
-                //         prefix: "",
-                //         grid: true,
-                //         onStart: function (data) {
-                //             console.log("onStart");
-                //         },
-                //         onChange: function (data) {
-                //             console.log("onChange");
-                //         },
-                //         onFinish: function (data) {
-                //             console.log("onFinish");
-                //         },
-                //         onUpdate: function (data) {
-                //             console.log("onUpdate");
-                //     });
-
-                // });
-        </script>
 </body>
 </html>
