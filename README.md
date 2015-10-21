@@ -1,6 +1,7 @@
 # FleetFeetWeb
 
 <img src="http://www.clker.com/cliparts/4/S/k/e/N/p/baby-feet-peach-md.png"></br>
+<h>image src:http://www.clker.com/cliparts/4/S/k/e/N/p/baby-feet-peach-md.png</h>h>
 FleetFeet Project from CS Dept@ Colorado State University
 <br/>http://www.cs.colostate.edu/EDF/fleetFeet/fleetFeet.php#
 </br>
