@@ -1,20 +1,17 @@
 <?php 
-    $servername = "faure.cs.colostate.edu";
-    $username = "MethaneAnalysis";
-    $password = "MethProj!5";
+    // $servername = "faure.cs.colostate.edu";
+    // $username = "MethaneAnalysis";
+    // $password = "MethProj!5";
 
-    $connection = new mysqli($servername, $username, $password);
+    // $connection = new mysqli($servername, $username, $password);
 
-    //check connection
-    if (mysqli_connect_error())
-    {
-        die("Connection failed: ");
-    }
+    // //check connection
+    // if (mysqli_connect_error())
+    // {
+    //     die("Connection failed: ");
+    // }
 
-    echo "faure Connected successfully";
-
-
-
+    // echo "faure Connected successfully";
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,260 +26,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         
         <title>fleetFeet | BDG</title>
+                <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
        <link rel="shortcut icon" type="image/x-icon" href="img/kiddie.png" />
         <link rel="stylesheet" href="css/general-style.css"/>
         <link rel="stylesheet" href="css/ion.rangeSlider.css">
+        <link rel="stylesheet" type="text/css" href="css/fleetFeet.css">
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/ion.rangeSlider.skinNice.css">
-        <script src="js/jquery-1.11.3.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="slick/slick.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+        <script type="text/javascript" src="slick/slick.min.js">
+        </script>
 
         <script src="js/moment.js"></script>
         <style>
-            #map{
-                width: 94.6%;
-                height: 500px;
-                float: left;
-            }
-            .data{
-                height: 6px;
-                width: 100%;
-                background-color: red;
-            }
-            .charts{
-                height: 300px;
-                width: 100%;
-                background-color: rgba(0,0,0,0.2);
-            }
-            .mapTool{
-                width: 5%;
-                height: 843px;
-                float: right;
-                background-color:rgba(0,0,0,0.2); 
-            }
 
-            .timeLine{
-                margin-top: 506px;
-                width: 94.65%;
-                height: 40px;
-                background-color: rgba(0,0,0,0.8);
-            }
-
-            .container0{
-                margin-top: 0px;
-                width: 94.65%;
-                height: 300px;
-                float: center;
-                background-color: black;
-            }
-
-            .container1{
-                margin-top: 10px;
-                width: 100%;
-                height: 0px;
-                float: left;
-                background-color: rgba(0,0,0,1);
-            }
-
-            .container2{
-                margin-top: 0px;
-                width: 100%;
-                height: 0px;
-                float: right;
-                background-color: rgba(0,0,0,1);
-            }
-
-            .container3{
-                margin-top: 10px;
-                width: 100%;
-                height: 300px;
-                float: right;
-                background-color: rgba(0,0,0,1);
-            }
-
-            .container3-subcontainer1{
-                height: 100%;
-                width: 50%;
-                float: left;
-                background-color: red;
-            }
-
-            .container3-subcontainer2{
-                height: 100%;
-                width: 50%;
-                float: right;
-                background-color: green;
-            }
-            .container3-about{
-                height: 100%;
-                width: 50%;
-                float: left;
-                background-color: blue;
-            }
-                .container3-about-title{
-                    padding-top: 10%;
-                    height:20%;
-                    width: 100%;
-                    float: top;
-                    background-color: black;
-                }
-
-                    .container3-about-title #about{
-                        padding-top: 10px;
-                        margin-left: 40%;
-                        height: 60%;
-                        width: 80%;
-                        font-size: 25px;
-                        color: white;
-                    }
-                .container3-about-image{
-                    padding-left:5%; 
-                    height: 40%;
-                    width: 100%;
-                    float: center;
-                    background-color: black;
-                }
-
-                    .container3-about-image-left{
-                        padding-top: 10%;
-                        height: 80%;
-                        width: 50%;
-                        float: left;
-                        background-color: black;
-                    }
-
-                    .container3-about-image-right{
-                        padding-left: 10px;
-                        padding-top: 10%;
-                        height: 80%;
-                        width: 30%;
-                        float: left;
-                        background-color: black;
-                    }
-
-                .container3-about-intro{
-                    padding-left:10%;
-                    padding-right: 10%; 
-                    height: 40%;
-                    width: 100%;
-                    float: center;
-                    background-color: black;
-                }
-
-            .container3-documents{
-                height: 100%;
-                width: 50%;
-                float: right;
-                background-color: black;
-            }
-                .container3-documents-title{
-                    padding-top: 10%;
-                    height: 20%;
-                    width: 100%;
-                    float: top;
-                    background-color: black;
-                }
-                    .container3-documents-title #documents{
-                        padding-top: 10px;
-                        margin-left: 40%;
-                        height: 60%;
-                        width: 80%;
-                        font-size: 15px;
-                        color: white;
-                    }
-                .container3-documents-link{
-                    width: 100%;
-                    height: 80%;
-                    background-color: black
-                }
-                .container3-documents-link a:hover{
-                    color: red;
-                }
-
-                .container3-documents-link #publication{
-                    margin-left: 41%;
-                    margin-right: 41%;
-                    height: 100%;
-                }
-                .container3-documents-link #photo{
-                    margin-left: 44%;
-                    margin-right: 41%;
-                    height: 100%;
-                }
-
-
-            .container3-download{
-                height: 100%;
-                width: 50%;
-                float: left;
-                background-color: black;
-
-            }
-                .container3-download-title{
-                    padding-top: 10%;
-                    height: 20%;
-                    width: 100%;
-                    float: top;
-                    background-color: black;
-                }
-                    .container3-download-title #download{
-                        padding-top: 10px;
-                        margin-left: 40%;
-                        height: 60%;
-                        width: 80%;
-                        font-size: 15px;
-                        color: white;
-                    }
-                .container3-download-link{
-                    width: 100%;
-                    height: 80%;
-                    background-color: black;
-                }
-
-                .container3-download-link a:hover{
-                    color: red;
-                }
-
-                .container3-download-link #sourceCode{
-                    margin-left: 44%;
-                    margin-right: 41%;
-                    height: 100%;
-                }
-
-                .container3-download-link #documents_link{
-                    margin-left: 40%;
-                    margin-right: 41%;
-                    height: 100%;
-                }
-            .container3-extra1{
-                height: 100%;
-                width: 50%;
-                float: right;
-                background-color: black;
-            }
-            .container3-extra1-title{
-                    padding-top: 10%;
-                    height: 20%;
-                    width: 100%;
-                    float: top;
-                    background-color: black;
-            }
-
-            .container3-extra1-title #source{
-                        padding-top: 10px;
-                        margin-left: 40%;
-                        height: 60%;
-                        width: 80%;
-                        font-size: 15px;
-                        color: white;
-            }
-            .outLinks{
-                padding-top: 40px;
-                padding-left: 40px;
-                float: center;
-            }
 
         </style>
     </head>
@@ -310,19 +73,19 @@
                     
                         <ul class="site-navigation nav">
                             <li>
-                                <a href="#">Home</a>
+                                <a href="fleetFeet.php">Home</a>
                             </li>
                             <li>
-                                <a href="#">About</a>
+                                <a href="about.php">About</a>
                             </li>
                             <li>
-                                <a href="#">Documents</a>
+                                <a href="documents.php">Documents</a>
                             </li>
                             <li>
-                                <a href="#">Download</a>
+                                <a href="download.php">Download</a>
                             </li>
                             <li>
-                                <a href="#">People</a>
+                                <a href="people.php">People</a>
                             </li>
                         </ul>
                     
@@ -337,45 +100,20 @@
         <!-- Navigation Bloc END -->
 
         <!-- BODY -->
-        
-        <div class="bloc  l-bloc" id="bloc-1">
-            <div class="container bloc-lg">
+        <div class="fleetWrapper">
+            <div class="fleetFeetContainer">
                 <div class="data">
 
                 </div>
-                <div class="charts">
-
-                </div>
-
                 <hr class="featurette-divider">
                 
                 <div id="map">
                     <!-- Map -->
                 </div>
-                
-                <div class="mapTool">
-                    <img src="" width="55">
-                    <img src="http://www.iconsplace.com/download/black-open-in-browser-256.png" width="55">
-                    <img src="" width="55">
-                    <img src="http://downloadicons.net/sites/default/files/ray-standard-map-icons-27560.png" width="55">
-                    <img src="" width="55">
-                    <img src="http://icons.iconarchive.com/icons/icons8/windows-8/512/Maps-Center-Direction-icon.png" width="55">
-                    <img src="" width="55">
-                    <img src="http://uxrepo.com/static/icon-sets/typicons/svg/direction-outline.svg" width="55">
-                    <img src="" width="55">
-                    <img src="http://cdn.1001freedownloads.com/vector/thumb/63372/land-parcels.png" width="55">
-                    <img src="" width="55">
-                    <img src="http://freeiconbox.com/icon/256/33083.png" width="55">
-                    <img src="" width="55">
-                    <img src="http://simpleicon.com/wp-content/uploads/map-marker-20.svg" width="59">
-                    <img src="" width="55">
-                    <img src="http://freeiconbox.com/icon/256/21857.png" width="59">
-                    <img src="" width="55">
-                    <img src="https://cdn2.iconfinder.com/data/icons/flat-academic-icons/300/flat-globe-512.png" width="55">
-                    <img src="" width="55">
-                    <img src="http://simpleicon.com/wp-content/uploads/map-marker-4.svg" width="55">
-                </div>
+                <div class="charts">
+                    
 
+                </div>
 
                 <div class="timeLine">
                     
@@ -385,9 +123,7 @@
                 <div class="container0">
                 
                 </div>
-        </div>
-
-
+            </div>
 
         </div>
         <!-- BODY END -->
@@ -488,13 +224,14 @@
             </div>
         </div>
     </div>
-    <!-- Footer - bloc-10 END -->
 
-        <script src="https://maps.googleapis.com/maps/api/js">
-        </script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
         <script>
             var map;
             var marker;
+            var bounds = new google.maps.LatLngBounds();
+
              function initialize(){
                 var mapCanvas = document.getElementById('map');
                 var mapOptions = {
@@ -505,22 +242,504 @@
                 map = new google.maps.Map(mapCanvas,mapOptions);
 
                 var newLatLng = {lat:40.573436, lng:-105.086547};
-             marker = new google.maps.Marker({
-                    position:new google.maps.LatLng(40.573436, -105.086547),
-                    map:map,
-                    title: 'Hello world'
-                });
-
-                marker = new google.maps.Marker({
-                    position:new google.maps.LatLng(40.57343600000000000001, -105.78654700000000000001),
-                    map:map,
-                    title: 'ni hao'
-                });
 
 
+                var markers = [
+                    ['markers1', 40.573436,-105.086547],
+                    ['markers2', 41.0735,-104.0000],
+                    ['markers2', 41.2735,-104.0022],
+                    ['markers2', 41.4935,-104.0044],
+                    ['markers2', 41.6735,-104.0066],
+                    ['markers2', 41.8735,-104.0088],
+                    ['markers2', 41.9935,-104.0468],
+                    ['markers2', 41.0735,-104.0868],
+                    ['markers2', 41.2735,-104.0868],
+                    ['markers2', 41.4735,-104.4868],
+                    ['markers2', 41.6735,-104.4868],
+                    ['markers2', 41.8735,-104.4868],
+                    ['markers2', 41.0735,-104.4868],
+                    ['markers2', 41.2735,-104.7868],
+                    ['markers2', 41.4735,-104.7868],
+                    ['markers2', 41.6735,-104.7868],
+                    ['markers2', 41.8735,-104.1868],
+                    ['markers2', 41.0735,-104.2868],
+                    ['markers2', 41.1735,-104.3868],
+                    ['markers2', 41.2735,-104.4868],
+                    ['markers2', 41.3735,-104.5868],
+                    ['markers2', 41.4735,-104.6868],
+                    ['markers2', 41.5735,-104.7868],
+                    ['markers2', 41.6735,-104.8868],
+                    ['markers2', 41.7735,-104.9868],
+                    ['markers2', 41.8735,-104.7868],
+                    ['markers2', 41.9735,-104.2868],
 
-           }
-             google.maps.event.addDomListener(window, 'load', initialize);
+                    // curve
+                    ['markers1', 40.573436,-105.086547],
+                    ['markers2', 41.0735,-104.6000],
+                    ['markers2', 41.2735,-104.6022],
+                    ['markers2', 41.4935,-104.6044],
+                    ['markers2', 41.6735,-104.6066],
+                    ['markers2', 41.8735,-104.6088],
+                    ['markers2', 41.9935,-104.6468],
+                    ['markers2', 41.0735,-104.6868],
+                    ['markers2', 41.2735,-104.6868],
+                    ['markers2', 41.4735,-104.6868],
+                    ['markers2', 41.6735,-104.8868],
+                    ['markers2', 41.8735,-104.8868],
+                    ['markers2', 41.0735,-104.8868],
+                    ['markers2', 41.2735,-104.1868],
+                    ['markers2', 41.4735,-104.2868],
+                    ['markers2', 41.6735,-104.1868],
+                    ['markers2', 41.8735,-104.7868],
+                    ['markers2', 41.0735,-104.8868],
+                    ['markers2', 41.1735,-104.9868],
+                    ['markers2', 41.2735,-104.9868],
+                    ['markers2', 41.3735,-104.1868],
+                    ['markers2', 41.4735,-104.1868],
+                    ['markers2', 41.5735,-104.1868],
+                    ['markers2', 41.6735,-104.0868],
+                    ['markers2', 41.7735,-104.3868],
+                    ['markers2', 41.8735,-104.1868],
+                    ['markers2', 41.9735,-104.8868],
+
+                                        ['markers1', 40.573436,-105.086547],
+                    ['markers2', 41.0735,-105.6000],
+                    ['markers2', 41.2735,-105.6022],
+                    ['markers2', 41.4935,-105.6044],
+                    ['markers2', 41.6735,-105.6066],
+                    ['markers2', 41.8735,-105.6088],
+                    ['markers2', 41.9935,-105.6468],
+                    ['markers2', 41.0735,-105.6868],
+                    ['markers2', 41.2735,-105.6868],
+                    ['markers2', 41.4735,-105.6868],
+                    ['markers2', 41.6735,-105.8868],
+                    ['markers2', 41.8735,-105.8868],
+                    ['markers2', 41.0735,-105.8868],
+                    ['markers2', 41.2735,-105.1868],
+                    ['markers2', 41.4735,-105.2868],
+                    ['markers2', 41.6735,-105.1868],
+                    ['markers2', 41.8735,-105.7868],
+                    ['markers2', 41.0735,-105.8868],
+                    ['markers2', 41.1735,-105.9868],
+                    ['markers2', 41.2735,-105.9868],
+                    ['markers2', 41.3735,-105.1868],
+                    ['markers2', 41.4735,-105.1868],
+                    ['markers2', 41.5735,-105.1868],
+                    ['markers2', 41.6735,-105.0868],
+                    ['markers2', 41.7735,-105.3868],
+                    ['markers2', 41.8735,-105.1868],
+                    ['markers2', 41.9735,-105.8868],
+
+                                                            ['markers1', 40.573436,-105.086547],
+                    ['markers2', 41.0735,-106.6000],
+                    ['markers2', 41.2735,-106.6022],
+                    ['markers2', 41.4935,-106.6044],
+                    ['markers2', 41.6735,-106.6066],
+                    ['markers2', 41.8735,-106.6088],
+                    ['markers2', 41.9935,-106.6468],
+                    ['markers2', 41.0735,-106.6868],
+                    ['markers2', 41.2735,-106.6868],
+                    ['markers2', 41.4735,-106.6868],
+                    ['markers2', 41.6735,-106.8868],
+                    ['markers2', 41.8735,-106.8868],
+                    ['markers2', 41.0735,-106.8868],
+                    ['markers2', 41.2735,-106.1868],
+                    ['markers2', 41.4735,-106.2868],
+                    ['markers2', 41.6735,-106.1868],
+                    ['markers2', 41.8735,-106.7868],
+                    ['markers2', 41.0735,-106.8868],
+                    ['markers2', 41.1735,-106.9868],
+                    ['markers2', 41.2735,-106.9868],
+                    ['markers2', 41.3735,-106.1868],
+                    ['markers2', 41.4735,-106.1868],
+                    ['markers2', 41.5735,-106.1868],
+                    ['markers2', 41.6735,-106.0868],
+                    ['markers2', 41.7735,-106.3868],
+                    ['markers2', 41.8735,-106.1868],
+                    ['markers2', 41.9735,-106.8868],
+
+                                                                                ['markers1', 40.573436,-105.086547],
+                    ['markers2', 41.0735,-107.6000],
+                    ['markers2', 41.2735,-107.6022],
+                    ['markers2', 41.4935,-107.6044],
+                    ['markers2', 41.6735,-107.6066],
+                    ['markers2', 41.8735,-107.6088],
+                    ['markers2', 41.9935,-107.6468],
+                    ['markers2', 41.0735,-107.6868],
+                    ['markers2', 41.2735,-107.6868],
+                    ['markers2', 41.4735,-107.6868],
+                    ['markers2', 41.6735,-107.8868],
+                    ['markers2', 41.8735,-107.8868],
+                    ['markers2', 41.0735,-107.8868],
+                    ['markers2', 41.2735,-107.1868],
+                    ['markers2', 41.4735,-107.2868],
+                    ['markers2', 41.6735,-107.1868],
+                    ['markers2', 41.8735,-107.7868],
+                    ['markers2', 41.0735,-107.8868],
+                    ['markers2', 41.1735,-107.9868],
+                    ['markers2', 41.2735,-107.9868],
+                    ['markers2', 41.3735,-107.1868],
+                    ['markers2', 41.4735,-107.1868],
+                    ['markers2', 41.5735,-107.1868],
+                    ['markers2', 41.6735,-107.0868],
+                    ['markers2', 41.7735,-107.3868],
+                    ['markers2', 41.8735,-107.1868],
+                    ['markers2', 41.9735,-107.8868],
+
+                                        ['markers2', 41.0735,-107.6000],
+                    ['markers2', 41.2735,-108.6022],
+                    ['markers2', 41.4935,-108.6044],
+                    ['markers2', 41.6735,-108.6066],
+                    ['markers2', 41.8735,-108.6088],
+                    ['markers2', 41.9935,-108.6468],
+                    ['markers2', 41.0735,-108.6868],
+                    ['markers2', 41.2735,-108.6868],
+                    ['markers2', 41.4735,-108.6868],
+                    ['markers2', 41.6735,-108.8868],
+                    ['markers2', 41.8735,-108.8868],
+                    ['markers2', 41.0735,-108.8868],
+                    ['markers2', 41.2735,-108.1868],
+                    ['markers2', 41.4735,-108.2868],
+                    ['markers2', 41.6735,-108.1868],
+                    ['markers2', 41.8735,-108.7868],
+                    ['markers2', 41.0735,-108.8868],
+                    ['markers2', 41.1735,-108.9868],
+                    ['markers2', 41.2735,-108.9868],
+                    ['markers2', 41.3735,-108.1868],
+                    ['markers2', 41.4735,-108.1868],
+                    ['markers2', 41.5735,-108.1868],
+                    ['markers2', 41.6735,-108.0868],
+                    ['markers2', 41.7735,-108.3868],
+                    ['markers2', 41.8735,-108.1868],
+                    ['markers2', 41.9735,-108.8868],
+
+                                        ['markers2', 41.2735,-108.6022],
+                    ['markers2', 41.4935,-109.6044],
+                    ['markers2', 41.6735,-109.6066],
+                    ['markers2', 41.8735,-109.6088],
+                    ['markers2', 41.9935,-109.6468],
+                    ['markers2', 41.0735,-109.6868],
+                    ['markers2', 41.2735,-109.6868],
+                    ['markers2', 41.4735,-109.6868],
+                    ['markers2', 41.6735,-109.8868],
+                    ['markers2', 41.8735,-109.8868],
+                    ['markers2', 41.0735,-109.8868],
+                    ['markers2', 41.2735,-109.1868],
+                    ['markers2', 41.4735,-109.2868],
+                    ['markers2', 41.6735,-109.1868],
+                    ['markers2', 41.8735,-109.7868],
+                    ['markers2', 41.0735,-109.8868],
+                    ['markers2', 41.1735,-109.9868],
+                    ['markers2', 41.2735,-109.9868],
+                    ['markers2', 41.3735,-109.1868],
+                    ['markers2', 41.4735,-109.1868],
+                    ['markers2', 41.5735,-109.1868],
+                    ['markers2', 41.6735,-109.0868],
+                    ['markers2', 41.7735,-109.3868],
+                    ['markers2', 41.8735,-109.1868],
+                    ['markers2', 41.9735,-109.8868],
+
+                                        ['markers1', 40.573436,-105.086547],
+                    ['markers2', 40.0735,-104.0000],
+                    ['markers2', 40.2735,-104.0022],
+                    ['markers2', 40.4935,-104.0044],
+                    ['markers2', 40.6735,-104.0066],
+                    ['markers2', 40.8735,-104.0088],
+                    ['markers2', 40.9935,-104.0468],
+                    ['markers2', 40.0735,-104.0868],
+                    ['markers2', 40.2735,-104.0868],
+                    ['markers2', 40.4735,-104.4868],
+                    ['markers2', 40.6735,-104.4868],
+                    ['markers2', 40.8735,-104.4868],
+                    ['markers2', 40.0735,-104.4868],
+                    ['markers2', 40.2735,-104.7868],
+                    ['markers2', 40.4735,-104.7868],
+                    ['markers2', 40.6735,-104.7868],
+                    ['markers2', 40.8735,-104.1868],
+                    ['markers2', 40.0735,-104.2868],
+                    ['markers2', 40.1735,-104.3868],
+                    ['markers2', 40.2735,-104.4868],
+                    ['markers2', 40.3735,-104.5868],
+                    ['markers2', 40.4735,-104.6868],
+                    ['markers2', 40.5735,-104.7868],
+                    ['markers2', 40.6735,-104.8868],
+                    ['markers2', 40.7735,-104.9868],
+                    ['markers2', 40.8735,-104.7868],
+                    ['markers2', 40.9735,-104.2868],
+
+                    // curve
+                    ['markers1', 40.573436,-105.086547],
+                    ['markers2', 40.0735,-104.6000],
+                    ['markers2', 40.2735,-104.6022],
+                    ['markers2', 40.4935,-104.6044],
+                    ['markers2', 40.6735,-104.6066],
+                    ['markers2', 40.8735,-104.6088],
+                    ['markers2', 40.9935,-104.6468],
+                    ['markers2', 40.0735,-104.6868],
+                    ['markers2', 40.2735,-104.6868],
+                    ['markers2', 40.4735,-104.6868],
+                    ['markers2', 40.6735,-104.8868],
+                    ['markers2', 40.8735,-104.8868],
+                    ['markers2', 40.0735,-104.8868],
+                    ['markers2', 40.2735,-104.1868],
+                    ['markers2', 40.4735,-104.2868],
+                    ['markers2', 40.6735,-104.1868],
+                    ['markers2', 40.8735,-104.7868],
+                    ['markers2', 40.0735,-104.8868],
+                    ['markers2', 40.1735,-104.9868],
+                    ['markers2', 40.2735,-104.9868],
+                    ['markers2', 40.3735,-104.1868],
+                    ['markers2', 40.4735,-104.1868],
+                    ['markers2', 40.5735,-104.1868],
+                    ['markers2', 40.6735,-104.0868],
+                    ['markers2', 40.7735,-104.3868],
+                    ['markers2', 40.8735,-104.1868],
+                    ['markers2', 40.9735,-104.8868],
+
+                                        ['markers1', 40.573436,-105.086547],
+                    ['markers2', 40.0735,-105.6000],
+                    ['markers2', 40.2735,-105.6022],
+                    ['markers2', 40.4935,-105.6044],
+                    ['markers2', 40.6735,-105.6066],
+                    ['markers2', 40.8735,-105.6088],
+                    ['markers2', 40.9935,-105.6468],
+                    ['markers2', 40.0735,-105.6868],
+                    ['markers2', 40.2735,-105.6868],
+                    ['markers2', 40.4735,-105.6868],
+                    ['markers2', 40.6735,-105.8868],
+                    ['markers2', 40.8735,-105.8868],
+                    ['markers2', 40.0735,-105.8868],
+                    ['markers2', 40.2735,-105.1868],
+                    ['markers2', 40.4735,-105.2868],
+                    ['markers2', 40.6735,-105.1868],
+                    ['markers2', 40.8735,-105.7868],
+                    ['markers2', 40.0735,-105.8868],
+                    ['markers2', 40.1735,-105.9868],
+                    ['markers2', 40.2735,-105.9868],
+                    ['markers2', 40.3735,-105.1868],
+                    ['markers2', 40.4735,-105.1868],
+                    ['markers2', 40.5735,-105.1868],
+                    ['markers2', 40.6735,-105.0868],
+                    ['markers2', 40.7735,-105.3868],
+                    ['markers2', 40.8735,-105.1868],
+                    ['markers2', 40.9735,-105.8868],
+                                                            ['markers1', 40.573436,-105.086547],
+                    ['markers2', 40.0735,-106.6000],
+                    ['markers2', 40.2735,-106.6022],
+                    ['markers2', 40.4935,-106.6044],
+                    ['markers2', 40.6735,-106.6066],
+                    ['markers2', 40.8735,-106.6088],
+                    ['markers2', 40.9935,-106.6468],
+                    ['markers2', 40.0735,-106.6868],
+                    ['markers2', 40.2735,-106.6868],
+                    ['markers2', 40.4735,-106.6868],
+                    ['markers2', 40.6735,-106.8868],
+                    ['markers2', 40.8735,-106.8868],
+                    ['markers2', 40.0735,-106.8868],
+                    ['markers2', 40.2735,-106.1868],
+                    ['markers2', 40.4735,-106.2868],
+                    ['markers2', 40.6735,-106.1868],
+                    ['markers2', 40.8735,-106.7868],
+                    ['markers2', 40.0735,-106.8868],
+                    ['markers2', 40.1735,-106.9868],
+                    ['markers2', 40.2735,-106.9868],
+                    ['markers2', 40.3735,-106.1868],
+                    ['markers2', 40.4735,-106.1868],
+                    ['markers2', 40.5735,-106.1868],
+                    ['markers2', 40.6735,-106.0868],
+                    ['markers2', 40.7735,-106.3868],
+                    ['markers2', 40.8735,-106.1868],
+                    ['markers2', 40.9735,-106.8868],
+
+                                                                                ['markers1', 40.573436,-105.086547],
+                    ['markers2', 40.0735,-107.6000],
+                    ['markers2', 40.2735,-107.6022],
+                    ['markers2', 40.4935,-107.6044],
+                    ['markers2', 40.6735,-107.6066],
+                    ['markers2', 40.8735,-107.6088],
+                    ['markers2', 40.9935,-107.6468],
+                    ['markers2', 40.0735,-107.6868],
+                    ['markers2', 40.2735,-107.6868],
+                    ['markers2', 40.4735,-107.6868],
+                    ['markers2', 40.6735,-107.8868],
+                    ['markers2', 40.8735,-107.8868],
+                    ['markers2', 40.0735,-107.8868],
+                    ['markers2', 40.2735,-107.1868],
+                    ['markers2', 40.4735,-107.2868],
+                    ['markers2', 40.6735,-107.1868],
+                    ['markers2', 40.8735,-107.7868],
+                    ['markers2', 40.0735,-107.8868],
+                    ['markers2', 40.1735,-107.9868],
+                    ['markers2', 40.2735,-107.9868],
+                    ['markers2', 40.3735,-107.1868],
+                    ['markers2', 40.4735,-107.1868],
+                    ['markers2', 40.5735,-107.1868],
+                    ['markers2', 40.6735,-107.0868],
+                    ['markers2', 40.7735,-107.3868],
+                    ['markers2', 40.8735,-107.1868],
+                    ['markers2', 40.9735,-107.8868],
+                                        ['markers2', 41.0735,-107.6000],
+                    ['markers2', 40.2735,-108.6022],
+                    ['markers2', 40.4935,-108.6044],
+                    ['markers2', 40.6735,-108.6066],
+                    ['markers2', 40.8735,-108.6088],
+                    ['markers2', 40.9935,-108.6468],
+                    ['markers2', 40.0735,-108.6868],
+                    ['markers2', 40.2735,-108.6868],
+                    ['markers2', 40.4735,-108.6868],
+                    ['markers2', 40.6735,-108.8868],
+                    ['markers2', 40.8735,-108.8868],
+                    ['markers2', 40.0735,-108.8868],
+                    ['markers2', 40.2735,-108.1868],
+                    ['markers2', 40.4735,-108.2868],
+                    ['markers2', 40.6735,-108.1868],
+                    ['markers2', 40.8735,-108.7868],
+                    ['markers2', 40.0735,-108.8868],
+                    ['markers2', 40.1735,-108.9868],
+                    ['markers2', 40.2735,-108.9868],
+                    ['markers2', 40.3735,-108.1868],
+                    ['markers2', 40.4735,-108.1868],
+                    ['markers2', 40.5735,-108.1868],
+                    ['markers2', 40.6735,-108.0868],
+                    ['markers2', 40.7735,-108.3868],
+                    ['markers2', 40.8735,-108.1868],
+                    ['markers2', 40.9735,-108.8868],
+                                        ['markers2', 41.2735,-108.6022],
+                    ['markers2', 40.4935,-109.6044],
+                    ['markers2', 40.6735,-109.6066],
+                    ['markers2', 40.8735,-109.6088],
+                    ['markers2', 40.9935,-109.6468],
+                    ['markers2', 40.0735,-109.6868],
+                    ['markers2', 40.2735,-109.6868],
+                    ['markers2', 40.4735,-109.6868],
+                    ['markers2', 40.6735,-109.8868],
+                    ['markers2', 40.8735,-109.8868],
+                    ['markers2', 40.0735,-109.8868],
+                    ['markers2', 40.2735,-109.1868],
+                    ['markers2', 40.4735,-109.2868],
+                    ['markers2', 40.6735,-109.1868],
+                    ['markers2', 40.8735,-109.7868],
+                    ['markers2', 40.0735,-109.8868],
+                    ['markers2', 40.1735,-109.9868],
+                    ['markers2', 40.2735,-109.9868],
+                    ['markers2', 40.3735,-109.1868],
+                    ['markers2', 40.4735,-109.1868],
+                    ['markers2', 40.5735,-109.1868],
+                    ['markers2', 40.6735,-109.0868],
+                    ['markers2', 40.7735,-109.3868],
+                    ['markers2', 40.8735,-109.1868],
+                    ['markers2', 40.9735,-109.8868],
+
+
+                ];
+
+                // reference for multiple markers; http://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
+
+                                //pop up info window
+                  var contentString = [['<div id="content" >'+
+                     '<div id="siteNotice">'+
+                    '</div>'+
+                    '<h1 id="firstHeading" class="firstHeading">Data title</h1>'+
+                    '<div id="bodyContent">'+
+                    '<p><b>Location:</b>' + '' +'</p>' +
+                    '<p><b>Time:</b>' + '' +'</p>' +
+                    '<p><b>Avg CH4:</b>' + '' +'</p>' +
+                    '<p><b>Avg Wind Speed:</b>' + '' +'</p>' +
+                    '<p><b>Download:</b> <a href="http://www.cs.colostate.edu/EDF/fleetFeet/fleetFeet.php">'+
+                    'bloc1</a> '+
+                    '</p>'+
+                    '</div>'+
+                    '</div>']];
+                  // var infowindow = new google.maps.InfoWindow({
+                  //    content: contentString
+                  // });
+
+                // Display multiple markers on a map
+                var infoWindow = new google.maps.InfoWindow(), marker, i;
+                // var infoWindow = new google.maps.InfoWindow({
+
+                // });
+
+                // Loop through our array of markers & place each one on the map  
+                for( i = 0; i < markers.length; i++ ) {
+                    var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+                    bounds.extend(position);
+                    marker = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        title: markers[i][0]
+                    });
+                    
+                    // Allow each marker to have an info window    
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                            // console.print(hah);
+                            infoWindow.setContent('<div id="content" >'+
+                     '<div id="siteNotice">'+
+                    '</div>'+
+                    '<h1 id="firstHeading" class="firstHeading">Data title</h1>'+
+                    '<div id="bodyContent">'+
+                    '<p><b>Location:</b>' + 'longtitude:'+ markers[i][1]+' latitude:'+markers[i][2]+'</p>' +
+                    '<p><b>Time:</b>' + '1/20/2015' + '8:00am - 8:30am'+'</p>' +
+                    '<p><b>Avg CH4:</b>' + '300' +'</p>' +
+                    '<p><b>Avg Wind Speed:</b>' + '400' +'</p>' +
+                    '<p><b>Download:</b> <a href="http://www.cs.colostate.edu/EDF/fleetFeet/fleetFeet.php">'+
+                    'bloc1</a> '+
+                    '</p>'+
+                    '</div>'+
+                    '</div>');
+                            infoWindow.open(map, marker);
+                        }
+                    })(marker, i));
+
+                    // Automatically center the map fitting all markers on the screen
+                    map.fitBounds(bounds);
+                }
+
+
+
+
+                //drawing tools 
+                // 
+                // 
+                var drawingManager = new google.maps.drawing.DrawingManager({
+                drawingMode: google.maps.drawing.OverlayType.MARKER,
+                drawingControl: true,
+                drawingControlOptions: {
+                position: google.maps.ControlPosition.TOP_CENTER,
+                drawingModes: [
+                // google.maps.drawing.OverlayType.MARKER,
+                // google.maps.drawing.OverlayType.CIRCLE,
+                google.maps.drawing.OverlayType.POLYGON,
+                // google.maps.drawing.OverlayType.POLYLINE
+                // google.maps.drawing.OverlayType.RECTANGLE
+                ]
+                },
+                // markerOptions: {icon: 'images/beachflag.png'},
+                circleOptions: {
+                  fillColor: '#ffff00',
+                  fillOpacity: 1,
+                  strokeWeight: 5,
+                  clickable: false,
+                  editable: true,
+                  zIndex: 1
+                },
+                polygonOptions:{
+                  draggable:true,
+                  editable:true,
+                  fillColor:"red",
+                  fillOpacity:0.65,
+                  geodesic:true,
+                  strokeColor:"red"
+                }
+
+              });
+            drawingManager.setMap(map);
+
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+
 
         </script>
 
@@ -601,5 +820,7 @@
 
                 // });
         </script>
+            <!-- Footer - bloc-10 END -->
+        <script type="text/javascript" src="js/base.js"></script>
 </body>
 </html>
