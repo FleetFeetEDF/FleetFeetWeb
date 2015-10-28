@@ -17,7 +17,39 @@ $rangeTime.on("change", function () {
     var $this = $(this),
         value = $this.prop("value").split(";");
 
-   document.getElementById("date").innerHTML = "<strong>Time selected:</strong>  "+ moment(value[0], "X").format("MMMM Do YYYY, h:mm:ss a")+ " --- " + moment(value[1], "X").format("MMMM Do YYYY, h:mm:ss a");
+        //update the map
+
+        //empty the markers
+        for( i = 0; i < markerArray.length; i++ ) {
+            markerArray[i].setMap(null);
+        }
+        markerArray=[];
+
+
+        for( i = 0; i < markers.length; i++ ) {
+            var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+               bounds.extend(position);
+               if( (markers[i][3]>=value[0]) && (markers[i][4]<=value[1])){
+                       marker = new google.maps.Marker({
+                           position: position,
+                           map: map,
+                           title: markers[i][0]
+                         });
+                       markerArray.push(marker);
+                       console.log("-------------hahah");
+               }else{
+                       // marker = new google.maps.Marker({
+                       //     position: position,
+                       //     map: null,
+                       //     title: markers[i][0]
+                       //   });
+
+               }
+        }
+                google.maps.event.trigger(map, 'resize');
+
+
+   document.getElementById("date").innerHTML = "<strong>Time selected:</strong>  "+ moment(value[0], "X").format("MMMM Do YYYY, h:mm:ss a")+" ("+value[0]+") " +" --- " + moment(value[1], "X").format("MMMM Do YYYY, h:mm:ss a")+" ("+value[1]+") ";
     console.log(moment(value[0], "X").format("MMMM Do YYYY, h:mm:ss a") + " ---- " + moment(value[1], "X").format("MMMM Do YYYY, h:mm:ss a"));
 });
 
