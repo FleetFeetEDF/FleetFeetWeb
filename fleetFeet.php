@@ -1,7 +1,24 @@
 <?php 
+<<<<<<< HEAD
     // $servername = "faure.cs.colostate.edu";
     // $username = "MethaneAnalysis";
     // $password = "MethProj!5";
+=======
+    $servername = "faure.cs.colostate.edu";
+    $username = "MethaneAnalysis";
+    $password = "MethProj!5";
+
+    $connection = new mysqli($servername, $username, $password);
+
+
+    //check connection
+    if (mysqli_connect_error())
+    {
+        die("Connection failed: ");
+    }
+
+    echo "faure Connected successfully";
+>>>>>>> origin
 
     // $connection = new mysqli($servername, $username, $password);
 
