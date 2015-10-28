@@ -10,7 +10,38 @@ html, body{
     display: block;
 }
 
+/*bat chart style*/
 
+path {  stroke: #fff; }
+path:hover {  opacity:0.9; }
+rect:hover {  fill:blue; }
+.axis {  font: 10px sans-serif; }
+.legend tr{    border-bottom:1px solid grey; }
+.legend tr:first-child{    border-top:1px solid grey; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {  display: none; }
+.legend{
+    margin-bottom:76px;
+    display:inline-block;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+.legend td{
+    padding:4px 5px;
+    vertical-align:bottom;
+}
+.legendFreq, .legendPerc{
+    align:right;
+    width:50px;
+}
+/*bat chart style*/
 
 
 .fleetFeetContainer #map{
@@ -36,9 +67,10 @@ html, body{
 }
 
 .fleetFeetContainer .container0{
-    height: 300px;
+    height: 350px;
     width: 100%;
     /*position: relative;*/
+    padding: 0 20px 5px 20px; 
 }
 
 
@@ -58,7 +90,7 @@ html, body{
     right: 
 }*/
 .status #date{
-    float:right;
+    float:left;
 }
 
 
@@ -139,9 +171,9 @@ html, body{
             .container0{
                 margin-top: 0px;
                 width: 94.65%;
-                height: 180px;
+                height: 330px;
                 float: center;
-                background-color: black;
+                background-color: white;
             }
 
             .container1{

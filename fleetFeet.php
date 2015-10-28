@@ -38,6 +38,7 @@
         <link rel="stylesheet" href="css/ion.rangeSlider.skinNice.css">
         <link rel="stylesheet" type="text/css" href="slick/slick.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 
 
         <script type="text/javascript" src="slick/slick.min.js">
@@ -114,21 +115,25 @@
                     
 
                 </div>
-                <div class="status">
-                    <p id="servertime"></p><p id="date"></p>
-                </div>
+
 <!--                 <div class="timeLine">
                     
                     <input type="text" id="range" name="range" value="">
     
                 </div> -->
+                                <div class="status">
+                    <p id="date"></p>
+                </div>
                 <div class="timeLine">
                     
                     <input type="text" id="rangeTime" name="range" value="">
     
                 </div>
+
                 <div class="container0">
-                
+                    <div id="dashboard0"></div>
+                <div id='dashboard'>
+                </div>
                 </div>
             </div>
 
@@ -231,11 +236,17 @@
 
 
         <!-- Scripts  -->
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script type="text/javascript" src="js/barchart.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
         <script src="js/map.js"></script>
         <script src="js/ion.rangeSlider.min.js"></script>
         <script src="js/timeSelector.js"></script>
             <!-- Footer - bloc-10 END -->
         <script type="text/javascript" src="js/base.js"></script>
+
+        <script type="text/javascript">
+
+        </script>
 </body>
 </html>
