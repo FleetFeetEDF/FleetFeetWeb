@@ -239,6 +239,7 @@
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script type="text/javascript" src="js/barchart.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
+
         <script src="js/map.js"></script>
         <script src="js/ion.rangeSlider.min.js"></script>
         <script src="js/timeSelector.js"></script>
@@ -246,7 +247,41 @@
         <script type="text/javascript" src="js/base.js"></script>
 
         <script type="text/javascript">
-
+                    freqData= [];
+                    dashboard('#dashboard',freqData);
         </script>
+
+        <script type="text/javascript">
+            google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
+                            // hide your loading bar
+                      var tempMarkerArray=markerArray;
+                      console.log("jasd");
+
+                      for( i = 0; i < markerArray.length; i++ ) {
+                        markerArray[i].setMap(null);
+                      }
+                      markerArray=[];
+                      var freqData=[];
+
+                      if(document.getElementById("dashboard")!=null)
+                         document.getElementById("dashboard").remove();
+
+                      document.getElementById("dashboard0").insertAdjacentHTML('afterend','<div id="dashboard"></div>'); 
+                      // map.set();
+                      //update bar chart
+                      var path =map.getPath();
+                      for(var i=0; i<tempMarkerArray.length;i++){
+                            if(google.maps.geometry.poly.containsLocation({lat:tempMarkerArray[i].getPosition().lat(),lng:tempMarkerArray[i].getPosition().lng()}, path)){
+                                markerArray.push(tempMarkerArray[i]);
+                                tempMarkerArray[i].setMap(map);
+
+                            }else{
+
+                            }
+                                
+                      };
+            });
+            //register polygon complete
+            </script>
 </body>
 </html>
