@@ -7,7 +7,9 @@
                 var mapOptions = {
                     center: new google.maps.LatLng(40.573436, -105.086547),
                     zoom:9,
-                    mapTypeId: google.maps.MapTypeId.HYBRID
+                    mapTypeId: google.maps.MapTypeId.HYBRID,
+                    draggableCursor: 'url(http://maps.google.com/mapfiles/openhand.cur), move',
+                    streetViewControl:false
                 }
                 map = new google.maps.Map(mapCanvas,mapOptions);
 
@@ -466,9 +468,6 @@
                     map.fitBounds(bounds);
                 }
 
-
-
-
                 //drawing tools 
                 // 
                 // 
@@ -478,9 +477,10 @@
                 drawingControlOptions: {
                 position: google.maps.ControlPosition.TOP_CENTER,
                 drawingModes: [
+                google.maps.drawing.OverlayType.POLYGON,
                 // google.maps.drawing.OverlayType.MARKER,
                 // google.maps.drawing.OverlayType.CIRCLE,
-                google.maps.drawing.OverlayType.POLYGON,
+
                 // google.maps.drawing.OverlayType.POLYLINE
                 // google.maps.drawing.OverlayType.RECTANGLE
                 ]
@@ -507,4 +507,4 @@
             drawingManager.setMap(map);
 
             }
-            google.maps.event.addDomListener(window, 'load', initialize);
+         google.maps.event.addDomListener(window, 'load', initialize);
