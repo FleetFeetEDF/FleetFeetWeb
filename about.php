@@ -318,7 +318,10 @@
             <div class="container bloc-lg">
                 <div class="data"></div>   <!--red dividing bar below top navigation -->
                 <div class="wrapper about__container">
-
+                    <h2 id="about-title">
+                        About fleetFeet
+                    </h2>
+                    <p>about content goes here</p>
                 </div>
              </div>
         </div>

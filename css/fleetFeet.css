@@ -10,6 +10,54 @@ html, body{
     display: block;
 }
 
+
+
+
+.fleetFeetContainer #map{
+    /*position: relative;*/
+    height: 600px;
+    width: 80%;
+}
+
+.fleetFeetContainer .charts{
+    height: 600px;
+    width: 20%;
+    /*position: fixed;*/
+    background-color: grey;
+    margin-right: 0px;
+    top: 0px;
+    right: 0px;
+}
+
+.fleetFeetContainer .timeLine{
+    height: 50px;
+    width: 100%;
+    /*position: relative;*/
+}
+
+.fleetFeetContainer .container0{
+    height: 300px;
+    width: 100%;
+    /*position: relative;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #baseContainer {
 	display: block;
 	background-color: #C3C3C3;
@@ -75,7 +123,7 @@ html, body{
             }
 
             .timeLine{
-                margin-top: 506px;
+                margin-top: 0px;
                 width: 94.65%;
                 height: 40px;
                 background-color: rgba(0,0,0,0.8);
@@ -84,7 +132,7 @@ html, body{
             .container0{
                 margin-top: 0px;
                 width: 94.65%;
-                height: 300px;
+                height: 280px;
                 float: center;
                 background-color: black;
             }

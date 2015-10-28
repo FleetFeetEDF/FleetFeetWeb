@@ -12,7 +12,7 @@
 
 .documents__container{
 	height: 1300px;
-	background-color: black;
+	background-color: grey;
 	width: 500px;
 	margin:0 auto;
 }
@@ -32,15 +32,22 @@
 }
 
 .people__image1{
-	background-color: black;
+	background-color: grey;
 	border-radius:50%;
 	width: 80px;
 	margin: 0 auto;
-	url(http://media.ign.com/boards/images/icons3/familyguy_jesus.gif);
+	/*url(http://media.ign.com/boards/images/icons3/familyguy_jesus.gif);*/
 }
 
 .people__name1{
 	width: 100%;
 	height: 50px;
 	background-color: white;
+}
+
+.wrapper .about__container #about-title{
+	/*margin:0 auto;*/
+	color: white;
+	z-index: 2;
+	/*background-color: black;*/
 }
