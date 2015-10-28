@@ -114,10 +114,17 @@
                     
 
                 </div>
-
-                <div class="timeLine">
+                <div class="status">
+                    <p id="servertime"></p><p id="date"></p>
+                </div>
+<!--                 <div class="timeLine">
                     
                     <input type="text" id="range" name="range" value="">
+    
+                </div> -->
+                <div class="timeLine">
+                    
+                    <input type="text" id="rangeTime" name="range" value="">
     
                 </div>
                 <div class="container0">
