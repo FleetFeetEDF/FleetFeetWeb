@@ -1,12 +1,13 @@
-drop table if exists fleetFeet;	
-CREATE TABLE fleetFeet (
-	 table_key serial primary key,
-	 user_id int,
-	 begin_time timestamp without time zone,
-	 end_time timestamp without time zone,
-	 location point,
-	 avg_ch4 real,
-	 avg_wind real,
-	 comp_alg int,
-	 checksum bigint,
-	 data_blob bytea);
+DROP TABLE IF EXISTS fleetfeet;
+CREATE TABLE fleetfeet (
+  table_key  VARCHAR(100) PRIMARY KEY,
+  user_id    VARCHAR(50)                 NOT NULL,
+  begin_time TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+  end_time   TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+  location   POINT                       NOT NULL,
+  avg_ch4    VARCHAR(50),
+  avg_wind   VARCHAR(50),
+  comp_alg   INT,
+  checksum   VARCHAR(50),
+  data_blob  BYTEA
+);

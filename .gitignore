@@ -3,5 +3,8 @@
 
 # folder
 
+# class
+*.class
+
 # Others
 *.xml
