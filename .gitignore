@@ -1,0 +1,8 @@
+# IDE specific gitignore
+.idea/
+
+# folder
+/files/
+
+# Others
+*.xml
