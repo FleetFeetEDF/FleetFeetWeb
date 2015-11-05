@@ -62,8 +62,10 @@ public class DataParser {
     public static final int CH4_INDEX = COL_HEADERS.indexOf("CH4");
     public static final int BUFFER_SIZE = 1000;
     public static final String BLOB_PATH = "tmp/blob_" + String.valueOf(System.currentTimeMillis() / 1000);
-    public static final String GZIP_PATH = BLOB_PATH+".gz";
+    public static final String GZIP_PATH = BLOB_PATH + ".gz";
     public static final String USERNAME = "default_user";
+    public static final String CHECKSUM_ALGORITHM = "SHA1";
+
     // DB info
     private static final String strSshUser = "yqiu";                  // SSH loging username
     private static final String strSshPassword = "830457580";                   // SSH login password
@@ -181,9 +183,8 @@ public class DataParser {
                 InputStream inputStream = rs.getBinaryStream("data_blob");
                 InputStream inputStream4Verify = rs.getBinaryStream("data_blob");
                 String storedChecksum = rs.getString("checksum");
-                String compAlg = rs.getString("comp_alg");
 
-                if (getChecksum(inputStream4Verify, compAlg).equals(storedChecksum)) {
+                if (getChecksum(inputStream4Verify, CHECKSUM_ALGORITHM).equals(storedChecksum)) {
                     gunzipIt(inputStream, fout);
                 } else {
                     //TODO: Checksum not match, handle?
@@ -195,6 +196,8 @@ public class DataParser {
 
         String processedFilename = filename + ".csv";
         applySelections(filename, processedFilename, selections);
+        File interFile = new File(filename);
+        interFile.delete();
         return processedFilename;
     }
 
@@ -286,7 +289,7 @@ public class DataParser {
                         gzipIt(BLOB_PATH, GZIP_PATH);
                         FileInputStream fis = new FileInputStream(GZIP_PATH);
                         System.out.println(userID);
-                        String checksum = getChecksum(fis, "SHA1");
+                        String checksum = getChecksum(fis, CHECKSUM_ALGORITHM);
                         fis.close();
                         Double avgCH4 = accuCH4 / dataPointsCount;
                         Double avgLat = accuLat / dataPointsCount;
@@ -307,7 +310,7 @@ public class DataParser {
                         ps.setDouble(6, avgLat);
                         ps.setString(7, avgCH4.toString());
                         ps.setString(8, avgWind.toString());
-                        ps.setString(9, "SHA1");
+                        ps.setString(9, "GZip");
                         ps.setString(10, checksum);
                         File f = new File(GZIP_PATH);
                         FileInputStream fileInputStream = new FileInputStream(f);
@@ -332,6 +335,11 @@ public class DataParser {
                     }
                 }
             }
+        } finally {
+            File interFile1 = new File(BLOB_PATH);
+            File interFile2 = new File(GZIP_PATH);
+            interFile1.delete();
+            interFile2.delete();
         }
     }
 
@@ -351,7 +359,7 @@ public class DataParser {
     public static void main(String[] args) {
         try {
             Connection con = getConnection();
-            storeFile(new File("/Users/Qiu/Documents/Github/FleetFeetWeb/dataparser/data3"), con);
+            storeFile(new File("/Users/Qiu/Documents/Github/FleetFeetWeb/dataparser/data3 (randomly moving)"), con);
             String[] queries = {"default_user_1444765339", "default_user_1444765357"};
             String[] test_header = new String[]{"DATA_HEADER",
                     "DATE",
