@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS fleetfeet;
-CREATE TABLE fleetfeet (
+DROP TABLE IF EXISTS fleetfeet_test;
+CREATE TABLE fleetfeet_test (
   table_key  VARCHAR(100) PRIMARY KEY,
   user_id    VARCHAR(50)                 NOT NULL,
   begin_time TIMESTAMP WITHOUT TIME ZONE NOT NULL,
@@ -10,4 +10,4 @@ CREATE TABLE fleetfeet (
   comp_alg   INT,
   checksum   VARCHAR(50),
   data_blob  BYTEA
-);
+); 

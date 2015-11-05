@@ -359,7 +359,7 @@ public class DataParser {
     public static void main(String[] args) {
         try {
             Connection con = getConnection();
-            storeFile(new File("/Users/Qiu/Documents/Github/FleetFeetWeb/dataparser/data3 (randomly moving)"), con);
+//            storeFile(new File("/Users/Qiu/Documents/Github/FleetFeetWeb/dataparser/data3 (randomly moving)"), con);
             String[] queries = {"default_user_1444765339", "default_user_1444765357"};
             String[] test_header = new String[]{"DATA_HEADER",
                     "DATE",
@@ -370,7 +370,7 @@ public class DataParser {
                     "GPS_LAT",
                     "GPS_LONG",
                     "GPS_ELEV"};
-            getFile(queries, (String[]) COL_HEADERS.toArray(), con);
+            getFile(queries, (String[]) test_header, con);
             con.close();
         } catch (Exception e) {
             e.printStackTrace();
