@@ -11,33 +11,83 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
+import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class DataParser {
 
-    public static int INTERVAL = 5;
-    public static int EPOCH_INDEX = 3;
-    public static int NANOSEC_INDEX = 4;
-    public static int LAT_INDEX = 6;
-    public static int LONG_INDEX = 7;
-    public static int CH4_INDEX = 25;
-    public static int BUFFER_SIZE = 1000;
-    public static String BLOB_PATH = "blob.csv";
-    public static String GZIP_PATH = "blob.gz";
-    public static String USERNAME = "default_user";
+    public static final List<String> COL_HEADERS = Arrays.asList("DATA_HEADER",
+            "DATE",
+            "TIME",
+            "SECONDS",
+            "NANOSECONDS",
+            "DIAG",
+            "GPS_LAT",
+            "GPS_LONG",
+            "GPS_ELEV",
+            "GPS_NUMSAT",
+            "GPS_HORIZDILUTION",
+            "GPS_GEOIDALHEIGHT",
+            "GPS_VELOCITY",
+            "GPS_DIRECTION",
+            "SONIC_U",
+            "SONIC_V",
+            "SONIC_W",
+            "SONIC_SOS",
+            "SONIC_TEMP",
+            "SONIC_AIN1",
+            "SONIC_AIN2",
+            "SONIC_AIN3",
+            "SONIC_AIN4",
+            "SONIC_PRT",
+            "CH4D",
+            "CH4",
+            "CH4_TEMP",
+            "CH4_PRESSURE",
+            "CH4_RSSI",
+            "CH4_DROPRATE",
+            "CH4_AUX1",
+            "CH4_AUX2",
+            "CH4_AUX3",
+            "CH4_AUX4");
+    public static final int INTERVAL = 5;
+    public static final int EPOCH_INDEX = COL_HEADERS.indexOf("SECONDS");
+    public static final int NANOSEC_INDEX = COL_HEADERS.indexOf("NANOSECONDS");
+    public static final int LAT_INDEX = COL_HEADERS.indexOf("GPS_LAT");
+    public static final int LONG_INDEX = COL_HEADERS.indexOf("GPS_LONG");
+    public static final int CH4_INDEX = COL_HEADERS.indexOf("CH4");
+    public static final int BUFFER_SIZE = 1000;
+    public static final String BLOB_PATH = "tmp/blob_" + String.valueOf(System.currentTimeMillis() / 1000);
+    public static final String GZIP_PATH = BLOB_PATH+".gz";
+    public static final String USERNAME = "default_user";
+    // DB info
+    private static final String strSshUser = "yqiu";                  // SSH loging username
+    private static final String strSshPassword = "830457580";                   // SSH login password
+    private static final String strSshHost = "phoenix.cs.colostate.edu";          // hostname or ip or SSH server
+    private static final int nSshPort = 22;                                    // remote SSH host port number
+    private static final String strRemoteHost = "faure.cs.colostate.edu";  // hostname or ip of your database server
+    private static final int nLocalPort = 5431;                                // local port number use to bind SSH tunnel
+    private static final int nRemotePort = 5432;                               // remote port number of your database
+    private static final String strDb = "fleetfeet";                       // database name
+    private static final String strDbUser = "fleetfeet";                    // database loging username
+    private static final String strDbPassword = "M52eCsteFYd7fw";                    // database login password
+    private static final String tableName = "fleetfeet_test";
 
-    private static String getChecksum(FileInputStream fis, String algorithm) throws IOException, NoSuchAlgorithmException {
+    public static String OUTPUT_PATH = "download_provider/dl_" + String.valueOf(System.currentTimeMillis() / 1000);
+
+    private static String getChecksum(InputStream fis, String algorithm) throws IOException, NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance(algorithm);
         byte[] dataBytes = new byte[1024];
 
-        int nread = 0;
+        int nread;
 
         while ((nread = fis.read(dataBytes)) != -1) {
             md.update(dataBytes, 0, nread);
         }
-        ;
 
         byte[] mdbytes = md.digest();
 
@@ -51,28 +101,49 @@ public class DataParser {
     }
 
     private static void gzipIt(String inputPath, String outputPath) {
-
         byte[] buffer = new byte[1024];
-
         try {
-
-            GZIPOutputStream gzos =
-                    new GZIPOutputStream(new FileOutputStream(outputPath));
-
-            FileInputStream in =
-                    new FileInputStream(inputPath);
-
+            GZIPOutputStream gzos = new GZIPOutputStream(new FileOutputStream(outputPath));
+            FileInputStream in = new FileInputStream(inputPath);
             int len;
             while ((len = in.read(buffer)) > 0) {
                 gzos.write(buffer, 0, len);
             }
-
             in.close();
-
             gzos.finish();
             gzos.close();
 
-//            System.out.println("Done")
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static void gunzipIt(String inputPath, String outputPath) {
+        byte[] buffer = new byte[1024];
+        try {
+            GZIPInputStream gzis = new GZIPInputStream(new FileInputStream(inputPath));
+            FileOutputStream out = new FileOutputStream(outputPath);
+            int len;
+            while ((len = gzis.read(buffer)) > 0) {
+                out.write(buffer, 0, len);
+            }
+            gzis.close();
+            out.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static void gunzipIt(InputStream inputStream, OutputStream outputStream) {
+        byte[] buffer = new byte[1024];
+
+        try {
+            GZIPInputStream gzis = new GZIPInputStream(inputStream);
+            int len;
+            while ((len = gzis.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, len);
+            }
+            gzis.close();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -92,7 +163,80 @@ public class DataParser {
         session.setPortForwardingL(nLocalPort, strRemoteHost, nRemotePort);
     }
 
-    private static void parseFile(File file, Connection connection) throws IOException, NoSuchAlgorithmException, SQLException {
+    /**
+     * @param queries    Queries that contains multiple table_keys (user_starttime)
+     * @param selections Column selections needs to be extracted
+     * @return File
+     * File returned to be downloaded
+     */
+    public static String getFile(String[] queries, String[] selections, Connection connection) throws IOException, SQLException, NoSuchAlgorithmException {
+        String filename = OUTPUT_PATH;
+        FileOutputStream fout = new FileOutputStream(filename);
+        for (String query : queries) {
+            String statement = "SELECT * FROM " + tableName + " WHERE table_key = ?";
+            PreparedStatement ps = connection.prepareStatement(statement);
+            ps.setString(1, query);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                InputStream inputStream = rs.getBinaryStream("data_blob");
+                InputStream inputStream4Verify = rs.getBinaryStream("data_blob");
+                String storedChecksum = rs.getString("checksum");
+                String compAlg = rs.getString("comp_alg");
+
+                if (getChecksum(inputStream4Verify, compAlg).equals(storedChecksum)) {
+                    gunzipIt(inputStream, fout);
+                } else {
+                    //TODO: Checksum not match, handle?
+                }
+            }
+            rs.close();
+            ps.close();
+        }
+
+        String processedFilename = filename + ".csv";
+        applySelections(filename, processedFilename, selections);
+        return processedFilename;
+    }
+
+    private static void applySelections(String inputPath, String outputPath, String[] selections) throws IOException {
+        boolean[] isSelected = new boolean[COL_HEADERS.size()];
+        for (String feature : selections) {
+            int idx = COL_HEADERS.indexOf(feature);
+            isSelected[idx] = true;
+        }
+
+        FileOutputStream fis = new FileOutputStream(outputPath);
+        try (BufferedReader br = new BufferedReader(new FileReader(inputPath))) {
+            String line, header = "";
+
+            // build and write header
+            for (int i = 0; i < COL_HEADERS.size(); i++) {
+                if (isSelected[i]) {
+                    header += COL_HEADERS.get(i) + ",";
+                }
+            }
+            header = header.substring(0, header.length() - 1) + "\n";
+            fis.write(header.getBytes());
+
+            // build and write content
+            while ((line = br.readLine()) != null) {
+                String out = "";
+                String[] splits = line.split(",");
+                for (int i = 0; i < COL_HEADERS.size(); i++) {
+                    if (isSelected[i]) {
+                        out += splits[i] + ",";
+                    }
+                }
+                out = out.substring(0, out.length() - 1) + "\n";
+                fis.write(out.getBytes());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        fis.close();
+    }
+
+    public static void storeFile(File file, Connection connection) throws IOException, NoSuchAlgorithmException, SQLException {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             Long startEpoch = null;
@@ -134,7 +278,7 @@ public class DataParser {
                         out.write(line.replaceAll("\\t", ",").getBytes());
                         out.write("\n".getBytes());
                         //mark current line
-                        br.mark(1000);
+                        br.mark(BUFFER_SIZE);
                     } else {//exceeds the interval, then import to db
 
                         out.flush();
@@ -148,11 +292,11 @@ public class DataParser {
                         Double avgLat = accuLat / dataPointsCount;
                         Double avgLong = accuLong / dataPointsCount;
                         Double avgWind = accuWind / dataPointsCount;
-                        Date startTime = new Date(startEpoch*1000);
-                        Date endTime = new Date((startEpoch + INTERVAL)*1000);
+                        Date startTime = new Date(startEpoch * 1000);
+                        Date endTime = new Date((startEpoch + INTERVAL) * 1000);
                         System.out.println(startTime);
                         // import to db
-                        String statement = "INSERT INTO fleetfeet(table_key, user_id, begin_time, end_time, location, avg_ch4, avg_wind, comp_alg, checksum, data_blob) " +
+                        String statement = "INSERT INTO " + tableName + " (table_key, user_id, begin_time, end_time, location, avg_ch4, avg_wind, comp_alg, checksum, data_blob) " +
                                 "VALUES(?, ?, ?, ?, POINT(?,?), ?, ?, ?, ?, ?)";
                         PreparedStatement ps = connection.prepareStatement(statement);
                         ps.setString(1, userID);
@@ -163,7 +307,7 @@ public class DataParser {
                         ps.setDouble(6, avgLat);
                         ps.setString(7, avgCH4.toString());
                         ps.setString(8, avgWind.toString());
-                        ps.setInt(9, 1);
+                        ps.setString(9, "SHA1");
                         ps.setString(10, checksum);
                         File f = new File(GZIP_PATH);
                         FileInputStream fileInputStream = new FileInputStream(f);
@@ -196,24 +340,29 @@ public class DataParser {
         return 0.0;
     }
 
+    public static Connection getConnection() throws JSchException, ClassNotFoundException, SQLException {
+        DataParser.doSshTunnel(strSshUser, strSshPassword, strSshHost, nSshPort, strRemoteHost, nLocalPort, nRemotePort);
+
+        Class.forName("org.postgresql.Driver");
+        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:" + nLocalPort + "/" + strDb, strDbUser, strDbPassword);
+        return con;
+    }
+
     public static void main(String[] args) {
         try {
-            String strSshUser = "yqiu";                  // SSH loging username
-            String strSshPassword = "830457580";                   // SSH login password
-            String strSshHost = "phoenix.cs.colostate.edu";          // hostname or ip or SSH server
-            int nSshPort = 22;                                    // remote SSH host port number
-            String strRemoteHost = "faure.cs.colostate.edu";  // hostname or ip of your database server
-            int nLocalPort = 5431;                                // local port number use to bind SSH tunnel
-            int nRemotePort = 5432;                               // remote port number of your database
-            String strDb = "fleetfeet";                       // database name
-            String strDbUser = "fleetfeet";                    // database loging username
-            String strDbPassword = "M52eCsteFYd7fw";                    // database login password
-
-            DataParser.doSshTunnel(strSshUser, strSshPassword, strSshHost, nSshPort, strRemoteHost, nLocalPort, nRemotePort);
-
-            Class.forName("org.postgresql.Driver");
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:" + nLocalPort + "/" + strDb, strDbUser, strDbPassword);
-            parseFile(new File("/Users/Qiu/Documents/Github/FleetFeetWeb/dataparser/data3"), con);
+            Connection con = getConnection();
+            storeFile(new File("/Users/Qiu/Documents/Github/FleetFeetWeb/dataparser/data3"), con);
+            String[] queries = {"default_user_1444765339", "default_user_1444765357"};
+            String[] test_header = new String[]{"DATA_HEADER",
+                    "DATE",
+                    "TIME",
+                    "SECONDS",
+                    "NANOSECONDS",
+                    "DIAG",
+                    "GPS_LAT",
+                    "GPS_LONG",
+                    "GPS_ELEV"};
+            getFile(queries, (String[]) COL_HEADERS.toArray(), con);
             con.close();
         } catch (Exception e) {
             e.printStackTrace();
