@@ -4,5 +4,9 @@
 # folder
 /files/
 
+# class
+*.class
+
 # Others
 *.xml
+*.iml
