@@ -52,9 +52,12 @@ $rangeTime.on("change", function () {
                     '<h1 id="firstHeading" class="firstHeading">Data title</h1>'+
                     '<div id="bodyContent">'+
                     '<p><b>Location:</b>' + 'longtitude:'+ markers[i][1]+' latitude:'+markers[i][2]+'</p>' +
-                    '<p><b>Time:</b>' + '1/20/2015' + '8:00am - 8:30am'+'</p>' +
+                    '<p><b>Time:</b>' + '1/20/2015' + '   8:00am - 8:30am'+'</p>' +
                     '<p><b>Avg CH4:</b>' + '300' +'</p>' +
                     '<p><b>Avg Wind Speed:</b>' + '400' +'</p>' +
+                    '<p><b>Low:</b>' + markers[i][5] +'</p>' +
+                    '<p><b>Mid:</b>' + markers[i][6] +'</p>' +
+                    '<p><b>High:</b>' + markers[i][7] +'</p>' +
                     '<p><b>Download:</b> <a href="http://www.cs.colostate.edu/EDF/fleetFeet/fleetFeet.php">'+
                     'bloc1</a> '+
                     '</p>'+
@@ -105,7 +108,9 @@ $rangeTime.on("change", function () {
 
 
 
-   document.getElementById("date").innerHTML = "<strong>Time selected:</strong>  "+ moment(value[0], "X").format("MMMM Do YYYY, h:mm:ss a")+" ("+value[0]+") " +" --- " + moment(value[1], "X").format("MMMM Do YYYY, h:mm:ss a")+" ("+value[1]+") ";
+
+
+    document.getElementById("date").innerHTML = "<strong>Time selected:</strong>  "+ moment(value[0], "X").format("MMMM Do YYYY, h:mm:ss a")+" ("+value[0]+") " +" --- " + moment(value[1], "X").format("MMMM Do YYYY, h:mm:ss a")+" ("+value[1]+") ";
     console.log(moment(value[0], "X").format("MMMM Do YYYY, h:mm:ss a") + " ---- " + moment(value[1], "X").format("MMMM Do YYYY, h:mm:ss a"));
 });
 
